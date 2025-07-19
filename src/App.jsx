@@ -83,6 +83,19 @@ function App() {
     localStorage.removeItem('appMessages');
   };
 
+  const testAPIValid = () => {
+    if (!clientRef.current) return;
+
+    clientRef.current.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [{ role: 'system', content: 'You are a helpful assistant.' }],
+      stream: true
+    }).catch(error => {
+      alert("Failed to fetch data: " + (error.message));
+      setDisabled(true);
+    });
+  }
+
   useEffect(() => {
     const storedMessages = localStorage.getItem('appMessages');
     if (storedMessages) {
@@ -103,19 +116,11 @@ function App() {
         dangerouslyAllowBrowser: true, // Only use this in development
       });
 
-      clientRef.current.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages: [{ role: 'system', content: 'You are a helpful assistant.' }],
-        stream: true
-      }).catch(error => {
-        alert("Failed to fetch data: " + (error.message));
-        setDisabled(true);
-      });
+      testAPIValid();
     }
   }, [apiKey]);
 
   useEffect(() => {
-    console.log('Messages updated:', messages);
     if (messages.length) {
       localStorage.setItem('appMessages', JSON.stringify(messages));
     }
