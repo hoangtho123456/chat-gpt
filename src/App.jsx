@@ -3,16 +3,16 @@ import OpenAI from 'openai'
 import Popup from './components/popups/PopupAI'
 
 function App() {
-  const [apiKey, setApiKey] = useState('');
-  const [userMessage, setUserMessage] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [disabled, setDisabled] = useState(false);
-  const popupRef = useRef(null);
-  const clientRef = useRef(null);
+  const [apiKey, setApiKey] = useState('')
+  const [userMessage, setUserMessage] = useState('')
+  const [messages, setMessages] = useState([])
+  const [disabled, setDisabled] = useState(false)
+  const popupRef = useRef(null)
+  const clientRef = useRef(null)
 
   const getKey = (apiKey) => {
-    setApiKey(apiKey);
-  };
+    setApiKey(apiKey)
+  }
 
   const scrollToMsgBottom = () => {
     const messageBox = document.querySelector('.message-wrapper-js');
